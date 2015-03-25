@@ -38,7 +38,7 @@ public class ActivityTableauDeBord extends Activity {
 
         //Layout pour le defilement horizontal
         HorizontalScrollView layoutHorizontalScroll = new HorizontalScrollView(this);
-        layoutHorizontalScroll.setBackgroundColor(R.color.gris);
+        layoutHorizontalScroll.setBackgroundColor(getResources().getColor(R.color.gris));
 
             //Tableau pour les elements de la fenetre
             TableLayout layoutTableau = new TableLayout(this);
@@ -74,13 +74,13 @@ public class ActivityTableauDeBord extends Activity {
         TableRow ligne = new TableRow(this);
 
         TableRow.LayoutParams parametreLigne = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
-        //parametreLigne.span = 2;
-        ligne.setLayoutParams(parametreLigne);
+        parametreLigne.span = 2;
 
         TextView txt = new TextView(this);
         txt.setText(texte);
         txt.setTypeface(null, Typeface.BOLD);
         txt.setTextSize(30);
+        txt.setLayoutParams(parametreLigne);
 
         ligne.addView(txt);
 
@@ -104,7 +104,7 @@ public class ActivityTableauDeBord extends Activity {
     public TableRow intialiserLigneGarde() {
         TableRow ligne = new TableRow(this);
 
-        TableRow.LayoutParams parametreCuve = new TableRow.LayoutParams(tailleEcran.widthPixels/6, tailleEcran.widthPixels/6);
+        TableRow.LayoutParams parametreCuve = new TableRow.LayoutParams(tailleEcran.widthPixels/5, tailleEcran.widthPixels/5);
         parametreCuve.setMargins(10, 10, 10, 10);
 
         for (final Cuve cuve : cuves) {
@@ -121,6 +121,8 @@ public class ActivityTableauDeBord extends Activity {
         fermenteurs[0] = new Fermenteur();
         fermenteurs[0].setId(0);
         fermenteurs[0].setNumero(1);
+        fermenteurs[0].setCapacite(100);
+        fermenteurs[0].setDateEtat(System.currentTimeMillis());
         fermenteurs[0].setEtat(1);
             //Brassin 1
             Brassin brassin1 = new Brassin();
@@ -132,21 +134,22 @@ public class ActivityTableauDeBord extends Activity {
         fermenteurs[1] = new Fermenteur();
         fermenteurs[1].setId(1);
         fermenteurs[1].setNumero(2);
+        fermenteurs[1].setDateEtat(System.currentTimeMillis()-1000*60*60*24);
         fermenteurs[1].setEtat(0);
     }
 
     public void initialiserCuves() {
-        //Cuve 1 contenant brassin 1
+        //Cuve 1 contenant brassin 2
         cuves = new Cuve[3];
         cuves[0] = new Cuve();
         cuves[0].setId(0);
         cuves[0].setNumero(1);
         cuves[0].setEtat(1);
-        //Brassin 1
-            Brassin brassin1 = new Brassin();
-            brassin1.setId(0);
-            brassin1.setNumero(312);
-            cuves[0].setBrassin(brassin1);
+        //Brassin 2
+            Brassin brassin2 = new Brassin();
+            brassin2.setId(1);
+            brassin2.setNumero(313);
+            cuves[0].setBrassin(brassin2);
 
         //Cuve 2
         cuves[1] = new Cuve();
@@ -154,10 +157,15 @@ public class ActivityTableauDeBord extends Activity {
         cuves[1].setNumero(2);
         cuves[1].setEtat(0);
 
-        //Cuve 3
+        //Cuve 3 contenant Brassin 3
         cuves[2] = new Cuve();
         cuves[2].setId(1);
         cuves[2].setNumero(2);
-        cuves[2].setEtat(0);
+        cuves[2].setEtat(3);
+            //Brassin 3
+            Brassin brassin3 = new Brassin();
+            brassin3.setId(2);
+            brassin3.setNumero(314);
+            cuves[2].setBrassin(brassin3);
     }
 }

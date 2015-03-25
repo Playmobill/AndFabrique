@@ -1,6 +1,6 @@
 package fabrique.gestion.Objets;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class Fermenteur {
 
@@ -14,7 +14,7 @@ public class Fermenteur {
 
     private int etat = 0;
 
-    private Date dateEtat;
+    private long dateEtat;
 
     private Brassin brassin;
 
@@ -41,8 +41,10 @@ public class Fermenteur {
         return EtatFermenteur.etat(etat);
     }
 
-    public Date getDateEtat() {
-        return dateEtat;
+    public String getDateEtat() {
+        Calendar calendrier = Calendar.getInstance();
+        calendrier.setTimeInMillis(dateEtat);
+        return calendrier.get(Calendar.DAY_OF_MONTH) + "/" + (calendrier.get(Calendar.MONTH)+1) + "/" + calendrier.get(Calendar.YEAR);
     }
 
     public Brassin getBrassin() {
@@ -69,7 +71,7 @@ public class Fermenteur {
         this.etat = etat;
     }
 
-    public void setDateEtat(Date dateEtat) {
+    public void setDateEtat(long dateEtat) {
         this.dateEtat = dateEtat;
     }
 

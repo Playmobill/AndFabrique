@@ -1,6 +1,6 @@
 package fabrique.gestion.Objets;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class Cuve {
 
@@ -14,7 +14,7 @@ public class Cuve {
 
     private int etat = 0;
 
-    private Date dateEtat;
+    private long dateEtat;
 
     private String commentaireEtat;
 
@@ -37,16 +37,16 @@ public class Cuve {
     }
 
     public String getEtat() {
-        if (etat == 1) {
-            return EtatCuve.etat(etat) + "\n" + brassin.getNumero();
-        } else if (etat == 2) {
-            return EtatCuve.etat(etat) + "\n" + brassin.getNumero();
+        if (etat == 0) {
+            return EtatCuve.etat(etat);
         }
-        return EtatCuve.etat(etat);
+        return EtatCuve.etat(etat) + "\n" + brassin.getNumero();
     }
 
-    public Date getDateEtat() {
-        return dateEtat;
+    public String getDateEtat() {
+        Calendar calendrier = Calendar.getInstance();
+        calendrier.setTimeInMillis(dateEtat);
+        return calendrier.get(Calendar.DAY_OF_MONTH) + "/" + calendrier.get(Calendar.MONTH) + "/" + calendrier.get(Calendar.YEAR);
     }
 
     public String getCommentaireEtat() {
@@ -77,7 +77,7 @@ public class Cuve {
         this.etat = etat;
     }
 
-    public void setDateEtat(Date dateEtat) {
+    public void setDateEtat(long dateEtat) {
         this.dateEtat = dateEtat;
     }
 
