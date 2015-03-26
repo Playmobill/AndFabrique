@@ -14,7 +14,7 @@ public class Cuve {
 
     private int etat = 0;
 
-    private long dateEtat;
+    private long dateEtat = System.currentTimeMillis();
 
     private String commentaireEtat;
 
@@ -37,8 +37,8 @@ public class Cuve {
     }
 
     public String getEtat() {
-        if (etat == 0) {
-            return EtatCuve.etat(etat);
+        if ((etat == 0) || (etat == 3)) {
+            return EtatCuve.etat(etat) + "\n";
         }
         return EtatCuve.etat(etat) + "\n" + brassin.getNumero();
     }
@@ -49,8 +49,23 @@ public class Cuve {
         return calendrier.get(Calendar.DAY_OF_MONTH) + "/" + calendrier.get(Calendar.MONTH) + "/" + calendrier.get(Calendar.YEAR);
     }
 
+    public String getDureeEtat() {
+        long temps = System.currentTimeMillis() - dateEtat;
+        int jour = (int)(temps / 1000 / 60 / 60 / 24);
+        int heure = (((int)(temps / 1000 / 60 / 60 / 24))-jour) * 24;
+        return jour + "j" + heure + "h";
+    }
+
     public String getCommentaireEtat() {
-        return commentaireEtat;
+        String texte = "";
+        if (commentaireEtat != null) {
+            texte = texte + commentaireEtat;
+        }
+
+        if (etat == 1) {
+            texte = texte + " depuis " + getDureeEtat();
+        }
+        return texte;
     }
 
     public Brassin getBrassin() {
@@ -75,6 +90,7 @@ public class Cuve {
 
     public void setEtat(int etat) {
         this.etat = etat;
+        dateEtat = System.currentTimeMillis();
     }
 
     public void setDateEtat(long dateEtat) {

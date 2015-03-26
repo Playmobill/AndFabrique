@@ -38,7 +38,7 @@ public class Fermenteur {
         if (etat == 1) {
             return EtatFermenteur.etat(etat) + "\n" + brassin.getNumero();
         }
-        return EtatFermenteur.etat(etat);
+        return EtatFermenteur.etat(etat) + "\n";
     }
 
     public String getDateEtat() {
@@ -69,6 +69,7 @@ public class Fermenteur {
 
     public void setEtat(int etat) {
         this.etat = etat;
+        dateEtat = System.currentTimeMillis();
     }
 
     public void setDateEtat(long dateEtat) {
